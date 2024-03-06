@@ -1,0 +1,25 @@
+@Category.Api_HostAddress = http://localhost:5292
+
+GET {{Category.Api_HostAddress}}/api/Category/
+Accept: application/json
+
+###
+
+GET {{Category.Api_HostAddress}}/api/Category/65df60b1406e0d98f6cba069
+Accept: application/json
+
+###
+GET {{Category.Api_HostAddress}}/api/Category/65df84f48c1dc2dd73e6b018
+Accept: application/json
+
+###
+
+POST {{Category.Api_HostAddress}}/api/Category/Where%20does%20it%20come%20from%3F
+Accept: application/json
+
+###
+
+DELETE {{Category.Api_HostAddress}}/api/Category/
+Accept: application/json
+
+###
