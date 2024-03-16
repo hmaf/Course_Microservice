@@ -1,0 +1,15 @@
+﻿using Category.Application.Dtos.File;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Category.Application.Servcies.IServices
+{
+    public interface IFileService
+    {
+        Task<string> UploadFile(FileB64 file, string FileAddress);
+        bool Delete(string fileName, string FileAddress);
+    }
+}

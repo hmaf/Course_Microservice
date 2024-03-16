@@ -1,14 +1,7 @@
-﻿using AutoMapper.Internal;
-using Category.Api.Contracts;
-using Category.Api.Exception;
-using Category.Application.Core.ApplicationError;
+﻿using Category.Api.Exception;
 using ErrorOr;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Linq;
 
 namespace Category.Api.Infrastructure
 {

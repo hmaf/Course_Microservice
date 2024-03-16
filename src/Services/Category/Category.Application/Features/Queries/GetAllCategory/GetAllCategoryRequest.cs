@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Category.Application.Features.Queries.GetAllCategory
 {
-    public record GetAllCategoryRequest(Filter Filter) : IRequest<ErrorOr<FilterCategoryDto?>>
+    public record GetAllCategoryRequest(int Page, int Take) : IRequest<ErrorOr<FilterCategoryDto?>>
     {
     }
 }

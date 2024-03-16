@@ -8,7 +8,7 @@ namespace Category.Application.Dtos.File
 {
     public class FileB64
     {
-        public string File { get; set; }
-        public string FileType { get; set; }
+        public string? File { get; set; }
+        public string? FileType { get; set; }
     }
 }

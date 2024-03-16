@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Category.Application.Contracts;
 using Category.Application.Core.ApplicationError;
 using Category.Application.Dtos.Category;
 using Category.Application.Dtos.Pagging;
@@ -6,11 +7,13 @@ using Category.Domain.Entity;
 using Category.Domain.Repositories;
 using ErrorOr;
 using MediatR;
+using Microsoft.Extensions.Options;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Category.Application.Features.Queries.GetAllCategory
 {
     public class GetAllCategoryRequestHandler
-        (IMapper mapper, ICategoryRepository categoryRepository) 
+        (IMapper mapper, ICategoryRepository categoryRepository, IOptions<AppSettings> appSettings) 
         : IRequestHandler<GetAllCategoryRequest, ErrorOr<FilterCategoryDto>>
     {
 
@@ -29,14 +32,17 @@ namespace Category.Application.Features.Queries.GetAllCategory
             int allEntitiesCount = query.Count();
 
             // ساخت یک صفحه‌بند بر اساس پارامترهای درخواست
-            var pager = Pager.Build(page: request.Filter.Page,
-                                    take: request.Filter.Take,
+            var pager = Pager.Build(page: request.Page,
+                                    take: request.Take,
                                     allEntitiesCount,
                                     filter.HowManyShowAfterBefore);
 
             // اعمال صفحه‌بندی به کوئری و نگاشت نتایج
             var filteredCategories = query.Pagging(pager).ToList();
             var mappedCategories = mapper.Map<List<CategoryModel>, List<CategoryDto>>(filteredCategories);
+
+            mappedCategories.ForEach(o=>o.Icon = $"{appSettings.Value.AppAddress}{appSettings.Value.File.Images}{o.Icon}") ;
+
 
             // ایجاد یک FilterCategoryDto با دسته‌بندی‌های نگاشت شده و اطلاعات صفحه‌بندی
             filter.Categories = mappedCategories;

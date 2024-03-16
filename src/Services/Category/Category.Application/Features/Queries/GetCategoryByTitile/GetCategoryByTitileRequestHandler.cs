@@ -1,20 +1,15 @@
 ﻿using AutoMapper;
-using Category.Application.Exception;
 using Category.Application.Dtos.Category;
-using Category.Domain.Entity;
 using Category.Domain.Repositories;
 using ErrorOr;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Category.Application.Contracts;
+using Microsoft.Extensions.Options;
 
 namespace Category.Application.Features.Queries.GetCategoryByTitile
 {
     public record GetCategoryByTitileRequestHandler
-        (IMapper mapper, ICategoryRepository categoryRepository)
+        (IMapper mapper, ICategoryRepository categoryRepository, IOptions<AppSettings> appSettings)
         : IRequestHandler<GetCategoryByTitileRequest, ErrorOr<CategoryDto?>>
     {
         public async Task<ErrorOr<CategoryDto?>> Handle(GetCategoryByTitileRequest request, CancellationToken cancellationToken)
@@ -24,6 +19,8 @@ namespace Category.Application.Features.Queries.GetCategoryByTitile
                 return Error.NotFound("Category_NotFound", $"موجودیتی با عنوان {request.Title} یافت نشد");
 
             var category = mapper.Map<CategoryDto?>(data);
+
+            category.Icon = $"{appSettings.Value.AppAddress}{appSettings.Value.File.Images}{data.Icon}";
 
             return category;
         }

@@ -20,4 +20,8 @@
 		<ProjectReference Include="..\Category.Infrastractor\Category.Infrastractor.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\" />
+	</ItemGroup>
+
 </Project>

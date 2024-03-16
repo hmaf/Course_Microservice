@@ -13,7 +13,12 @@ namespace Category.Infrastractor.MongoDbDrive.Repositories
 
         public CategoryRepository(ICategoryContext categoryContext)
         {
-            _categoryContext = categoryContext;
+            _categoryContext = categoryContext ?? throw new ArgumentNullException(nameof(categoryContext));
+
+            if (_categoryContext.Categories == null)
+            {
+                throw new InvalidOperationException("Categories in ICategoryContext is not properly initialized.");
+            }
         }
         #endregion
 
@@ -22,7 +27,7 @@ namespace Category.Infrastractor.MongoDbDrive.Repositories
             => await _categoryContext.Categories.Find(o => true).ToListAsync();
 
         public async Task<CategoryModel> GetCategoryAsync(string id)
-            => await _categoryContext.Categories.Find(c => c.Id == id).FirstOrDefaultAsync();
+            => await _categoryContext.Categories.Find(c => c.Id == id).FirstAsync();
 
         public async Task<CategoryModel> GetCategoryByTitileAsync(string title)
             => await _categoryContext.Categories.Find(c => c.Title == title).FirstOrDefaultAsync();

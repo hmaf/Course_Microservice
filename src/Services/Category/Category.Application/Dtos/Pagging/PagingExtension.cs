@@ -20,8 +20,8 @@ namespace Category.Application.Dtos.Pagging
         public static async Task<FilterCategoryDto> PaginateAndMap(IMapper mapper, FilterCategoryDto filter, GetAllCategoryRequest request, IEnumerable<CategoryModel> query)
         {
             // ساخت یک صفحه‌بند بر اساس پارامترهای درخواست
-            var pager = Pager.Build(page: request.Filter.Page,
-                                    take: request.Filter.Take,
+            var pager = Pager.Build(page: request.Page,
+                                    take: request.Take,
                                     allEntitiesCount: query.Count(),
                                     filter.HowManyShowAfterBefore);
 
